@@ -37,34 +37,38 @@ public class AuthController {
         String s = registrationRequest.getRoleId();
         int x = Integer.valueOf(s);
       
-        if(  x==1) {
-            	System.out.println(registrationRequest.getRoleId());
+        if(x==1) {
         	 RoleEntity userRole = roleEntityRepository.findByName("ROLE_ADMIN");
              u.setRoleEntity(userRole);   	
         }
         else if(x== 2) {
-        	System.out.println(registrationRequest.getRoleId());
        	    RoleEntity userRole = roleEntityRepository.findByName("ROLE_USER");
             u.setRoleEntity(userRole);   	
-         }
-       
-        userService.saveUser(u);
-       
+         }       
+        userService.saveUser(u);      
         return "OK";
     }
 
-    @PostMapping("/auth")
+    @PostMapping("/login")
     public String auth(@RequestBody AuthRequest request) {
         UserEntity userEntity = userService.findByLoginAndPassword(request.getLogin(), request.getPassword());
-        System.out.println(userEntity.getId());
-        String token = jwtProvider.generateToken(userEntity.getLogin());
-        //return new AuthResponse(token);
-        AuthResponse Ap= new AuthResponse(token, userEntity.getId());
-        authResponseRepository.save(Ap);
-        return "["+Ap.getToken()+"]";
+        System.out.println(userEntity.getApproval());
+        if(userEntity.getApproval()==0 && userEntity.getRoleEntity() == roleEntityRepository.findByName("ROLE_USER")) {
+        	return "admin can first approval than you can login";
+        }
+        else {
+	        String token = jwtProvider.generateToken(userEntity.getLogin());
+	        System.out.println(token);
+	        System.out.println(userEntity.getId());
+	        AuthResponse Ap= new AuthResponse(token, userEntity.getId());
+	      
+	        authResponseRepository.save(Ap);
+	        return Ap.getToken();
+        }
     }
     @GetMapping("/home")
 	public String Home() {
 		return "my name is";
 	}
+    
 }

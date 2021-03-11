@@ -7,6 +7,8 @@ import com.rayhan.blogger.repository.UserEntityRepository;
 
 import jdk.internal.org.jline.utils.Log;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -22,9 +24,6 @@ public class UserService {
     private PasswordEncoder passwordEncoder;
 
     public UserEntity saveUser(UserEntity userEntity) {
-    //	System.out.println(userEntity);
-       // RoleEntity userRole = roleEntityRepository.findByName("ROLE_ADMIN");
-        //userEntity.setRoleEntity(userRole);
         userEntity.setPassword(passwordEncoder.encode(userEntity.getPassword()));
         return userEntityRepository.save(userEntity);
     }
@@ -42,4 +41,36 @@ public class UserService {
         }
         return null;
     }
+
+	public List<UserEntity> getAllUser() {
+		//System.out.println("Helllllllllllllllo");
+		return userEntityRepository.findAll();
+	}
+	
+	public void saveBlogger(UserEntity user) {
+		this.userEntityRepository.save(user);
+		
+	}
+	
+	public UserEntity getUserId(long id) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
+	public void deleteBloggerById(long id) {
+		
+		
+	}
+	/*
+	 spring.datasource.url=jdbc:mysql://127.0.0.1:3306/spnew
+spring.datasource.username=root
+spring.datasource.password=
+server.port = 8182
+
+
+spring.jpa.show-sql=true
+spring.jpa.hibernate.dialect=org.hibernate.dialect.MySQL57Dialect
+spring.jpa.hibernate.ddl-auto = update
+	 */
 }

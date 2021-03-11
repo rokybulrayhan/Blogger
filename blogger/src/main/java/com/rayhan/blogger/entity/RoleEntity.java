@@ -1,7 +1,5 @@
 package com.rayhan.blogger.entity;
 
-import lombok.Data;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,7 +9,6 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "role_table")
-@Data
 public class RoleEntity {
 
     @Id

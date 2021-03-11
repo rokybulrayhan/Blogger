@@ -7,7 +7,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "blogger_all_activity")
+@Table(name = "blogger_comment")
 public class BloggerComment {
 	@Id 
 	@GeneratedValue

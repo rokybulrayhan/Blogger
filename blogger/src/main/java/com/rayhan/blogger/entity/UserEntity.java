@@ -1,6 +1,5 @@
 package com.rayhan.blogger.entity;
 
-import lombok.Data;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,17 +12,20 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "user_table")
-@Data
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    @Column
+   
+    @Column(unique = true)
     private String login;
 
     @Column
     private String password;
+    
+    @Column
+    private int approval;
 
     public Integer getId() {
 		return id;
@@ -33,13 +35,24 @@ public class UserEntity {
 		this.id = id;
 	}
 
-	public UserEntity(Integer id, String login, String password, RoleEntity roleEntity) {
+	
+	public UserEntity(Integer id, String login, String password, Integer approval, RoleEntity roleEntity) {
 		super();
 		this.id = id;
 		this.login = login;
 		this.password = password;
+		this.approval = approval;
 		this.roleEntity = roleEntity;
 	}
+
+	public Integer getApproval() {
+		return approval;
+	}
+
+	public void setApproval(Integer approval) {
+		this.approval = approval;
+	}
+
 	public UserEntity() {
 		
 	}
@@ -68,8 +81,6 @@ public class UserEntity {
 	public void setRoleEntity(RoleEntity roleEntity) {
 		this.roleEntity = roleEntity;
 	}
-
-	
 
     @ManyToOne
     @JoinColumn(name = "role_id")

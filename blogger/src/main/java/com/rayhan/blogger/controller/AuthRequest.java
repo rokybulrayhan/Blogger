@@ -1,8 +1,7 @@
 package com.rayhan.blogger.controller;
 
-import lombok.Data;
 
-@Data
+
 public class AuthRequest {
     public String getLogin() {
 		return login;

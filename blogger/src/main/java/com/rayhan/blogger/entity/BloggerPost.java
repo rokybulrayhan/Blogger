@@ -24,10 +24,9 @@ public class BloggerPost {
 	private String bloggerPost;
 	private int bUserId;
 	private String token;
+	private int approvalPost;
 
-	
-	
-    public Long getId() {
+	public Long getId() {
 		return id;
 	}
 
@@ -59,6 +58,13 @@ public class BloggerPost {
 		this.token = token;
 	}
 
+	public int getApprovalPost() {
+		return approvalPost;
+	}
+
+	public void setApprovalPost(int approvalPost) {
+		this.approvalPost = approvalPost;
+	}
 	public List<BloggerComment> getBlogComment() {
 		return blogComment;
 	}
@@ -66,18 +72,18 @@ public class BloggerPost {
 	public void setBlogComment(List<BloggerComment> blogComment) {
 		this.blogComment = blogComment;
 	}
-	
-
-
-
-	public BloggerPost(Long id, String bloggerPost, int bUserId, String token, List<BloggerComment> blogComment) {
+	public BloggerPost(Long id, String bloggerPost, int bUserId, String token, int approvalPost,
+			List<BloggerComment> blogComment) {
 		super();
 		this.id = id;
 		this.bloggerPost = bloggerPost;
 		this.bUserId = bUserId;
 		this.token = token;
+		this.approvalPost = approvalPost;
 		this.blogComment = blogComment;
 	}
+
+
 	public BloggerPost() {
 		
 	}
